@@ -37,4 +37,7 @@ app.delete("/posts/:id/comments/:cid", (req, res) => {
 	return res.send(myPost.comments);	
 });
 
-app.listen(4200, () => console.log("Server running at localhost:4200"));
+let [port, ip] = [process.env.PORT, process.env.IP];
+if (!port || !ip)
+	app.listen(4200, () => console.log("Server running at localhost:4200"));
+else app.listen(port, ip, () => console.log(`Server running at ${ip}:${port}`));
