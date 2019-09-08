@@ -20,22 +20,22 @@ let store = {
 
 app.get("/posts", (req, res) => {
 	console.log(store);
-	return res.status(200).send("JSON sent\n");
+	return res.status(200).json({msg: "JSON sent", store});
 });
 app.post("/posts", (req, res) => {
 	res.set("Content-Type", "application/json");
 	store.posts.push(req.body);
 	console.log(store);
-	return res.status(201).send("JSON received\n")
+	return res.status(201).json({msg: "JSON received", store});
 });
 app.put("/posts/:id", (req, res) => {
 	let post = store.posts.filter(p => p.id == req.params.id)[0];
 	let ind = store.posts.indexOf(post);
 	if (ind === -1)
-		return res.send("No such post present\n");
+		return res.send("No such post present");
 	store.posts[ind] = req.body;  // complete replacement for put
 	console.log(store)
-	return res.status(201).send("JSON modified\n");
+	return res.status(201).json({msg: "JSON modified", store});
 });
 app.delete("/posts/:id", (req, res) => {
 	let post = store.posts.filter(p => p.id == req.params.id)[0];
@@ -44,7 +44,7 @@ app.delete("/posts/:id", (req, res) => {
 		return res.send("No such post present\n");
 	store.posts.splice(ind, 1);
 	console.log(store);
-	return res.send("JSON deleted\n");
+	return res.json({msg: "JSON deleted", store});
 });
 
 let [port, ip] = [process.env.PORT, process.env.IP];
