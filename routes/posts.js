@@ -19,31 +19,35 @@ let store = {
 };
 
 app.get("/posts", (req, res) => {
-	res.status(200).json(store);
+	console.log(store);
+	return res.status(200).send("JSON sent\n");
 });
 app.post("/posts", (req, res) => {
 	res.set("Content-Type", "application/json");
 	store.posts.push(req.body);
-	res.send(store)
 	console.log(store);
+	return res.status(201).send("JSON received\n")
 });
 app.put("/posts/:id", (req, res) => {
-	// res.set("Content-Type", "application/json");
-	console.log("yooooooo");
 	let post = store.posts.filter(p => p.id == req.params.id)[0];
 	let ind = store.posts.indexOf(post);
-	// res.send(ind);
-	// console.log(ind);
+	if (ind === -1)
+		return res.send("No such post present\n");
 	store.posts[ind] = req.body;  // complete replacement for put
-	res.send(store);
+	console.log(store)
+	return res.status(201).send("JSON modified\n");
 });
 app.delete("/posts/:id", (req, res) => {
 	let post = store.posts.filter(p => p.id == req.params.id)[0];
 	let ind = store.posts.indexOf(post);
+	if (ind === -1)
+		return res.send("No such post present\n");
 	store.posts.splice(ind, 1);
-	res.send(store);
 	console.log(store);
+	return res.send("JSON deleted\n");
 });
 
-// let [port, ip] = [process.env.PORT, process.env.IP];
-app.listen(4200, () => console.log(`Server running at localhost:4200`));
+let [port, ip] = [process.env.PORT, process.env.IP];
+if (!port || !ip)
+	app.listen(4200, () => console.log(`Server running at localhost:4200`));
+else app.listen(port, ip, () => console.log(`Server running at ${ip}:${port}`));
