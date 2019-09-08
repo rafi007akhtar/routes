@@ -1,0 +1,11 @@
+{
+  "name": "routes",
+  "version": "1.0.0",
+  "description": "Social media-ish REST API server built using NodeJS and its Express framework.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Md Rafi Akhtar",
+  "license": "MIT"
+}
