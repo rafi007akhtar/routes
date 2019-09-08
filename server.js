@@ -32,12 +32,19 @@ module.exports = { store, findPost, findPostInd };
 
 // handling of requests
 let posts = require("./posts");
-// let comments = require("./comments");
+let comments = require("./comments");
 
+// routes for post
 app.get("/posts", posts.getPosts);
-app.post("/posts", (req, res) => {posts.addPost(req, res)});
+app.post("/posts", posts.addPost);
 app.put("/posts/:id", posts.updatePost);
 app.delete("/posts/:id", posts.removePost);
+
+// routes for comments
+app.get("/posts/:id/comments", comments.getComments);
+app.post("/posts/:id/comments", comments.addComment);
+app.put("/posts/:id/comments/:cid", comments.updateComment);
+app.delete("/posts/:id/comments/:cid", comments.removeComment);
 
 let [port, ip] = [process.env.PORT, process.env.IP];
 if (!port || !ip)
