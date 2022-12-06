@@ -10,8 +10,8 @@
   "author": "Md Rafi Akhtar",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
     "morgan": "^1.9.1",
     "node-dev": "^4.0.0",
     "npm": "^6.11.3"
